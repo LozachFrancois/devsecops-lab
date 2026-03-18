@@ -1,11 +1,11 @@
-# ✅ Image Alpine (plus légère et sécurisée) - Version la plus récente
+# ✅ Image Alpine (plus légère et sécurisée)
 FROM node:22-alpine
 
 WORKDIR /app
 
 # ✅ Copie des dépendances d'abord (cache)
 COPY src/package*.json ./
-RUN npm ci --only=production && npm cache clean --force
+RUN npm install --omit=dev && npm cache clean --force
 
 COPY src/ ./
 
@@ -13,7 +13,6 @@ COPY src/ ./
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nodejs -u 1001 && \
     chown -R nodejs:nodejs /app
-    npm install --omit=dev && npm cache clean --force
 
 USER nodejs
 
