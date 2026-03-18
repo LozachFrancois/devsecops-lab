@@ -13,6 +13,7 @@ COPY src/ ./
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nodejs -u 1001 && \
     chown -R nodejs:nodejs /app
+    npm install --omit=dev && npm cache clean --force
 
 USER nodejs
 
